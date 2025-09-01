@@ -22,3 +22,9 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`.
+
+You can use
+  Username: 'user1'
+  Password: 'user123'
+to sign in.
+Or Sign Up with your own Account.
