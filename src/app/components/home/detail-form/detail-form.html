@@ -1,0 +1,64 @@
+@if (isOpen) {
+  <div class="fixed inset-0 z-40 bg-[#212529dd] bg-opacity-75"></div>
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-lg transform transition-all"
+          role="dialog" aria-modal="true">
+      
+      <!-- Card Header -->
+      <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Employee Details
+        </h3>
+        <button (click)="closeDetail()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+          <img class="h-5 w-5" src="assets/svg/close.svg" alt="">
+        </button>
+      </div>
+      
+      <!-- Info -->
+      <div class="p-6 space-y-4">
+        <div class="flex flex-col items-center sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+          <div class="text-center sm:text-left">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ employee.firstName }} {{ employee.lastName }}</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ employee.username }}</p>
+            <span class="detail-value">
+              {{ employee.status }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="border-t dark:border-gray-700 pt-4">
+          <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+            <div class="sm:col-span-2">
+              <dt class="detail-label">Email Address</dt>
+              <dd class="detail-value">{{ employee.email }}</dd>
+            </div>
+            <div>
+              <dt class="detail-label">Group</dt>
+              <dd class="detail-value">{{ employee.group }}</dd>
+            </div>
+              <div>
+              <dt class="detail-label">Basic Salary</dt>
+              <dd class="detail-value font-mono">{{ employee.basicSalary | currency : 'Rp.' }}</dd>
+            </div>
+            <div>
+              <dt class="detail-label">Birth Date</dt>
+              <dd class="detail-value">{{ employee.birthDate | date:'d MMMM yyyy' }}</dd>
+            </div>
+            <div>
+              <dt class="detail-label">Description</dt>
+              <dd class="detail-value">{{ employee.description | date:'d MMMM yyyy' }}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <!-- Card Footer -->
+      <div class="flex items-center justify-end p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+        <button (click)="closeDetail()" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+          OK
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+}

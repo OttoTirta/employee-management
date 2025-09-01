@@ -1,0 +1,30 @@
+@if (isLoggedIn()) {
+  <header
+    class="bg-gray-800 shadow-md w-full sticky top-0 z-10"
+  >
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div
+          class="flex items-center w-16 cursor-pointer"
+          (click)="redirectToHome()"
+        >
+          <h1 class="ml-3 text-xl font-bold text-gray-100">
+            Employee Management
+          </h1>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <span class="font-medium text-gray-300">
+            Welcome, {{ getUsername() }}
+          </span>
+          <button 
+            (click)="onLogout()"
+            class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300 ease-in-out">
+            <img src="assets/svg/logout.svg">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+}

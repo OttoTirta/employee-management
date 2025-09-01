@@ -1,0 +1,28 @@
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem; /* mb-2 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  color: #ffffff; /* text-white */
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 0.625rem; /* p-2.5 */
+  font-size: 0.875rem; /* text-sm */
+  color: #ffffff; /* text-white */
+  background-color: #374151; /* bg-gray-700 */
+  border: 1px solid #4b5563; /* border border-gray-600 */
+  border-radius: 0.5rem; /* rounded-lg */
+
+  &::placeholder {
+    color: #9ca3af; /* placeholder-gray-400 */
+  }
+
+  &:focus {
+    outline: none; /* Good practice for custom focus styles */
+    border-color: #0ea5e9; /* focus:border-sky-500 */
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.5); /* Replicates focus:ring-sky-500 */
+  }
+}

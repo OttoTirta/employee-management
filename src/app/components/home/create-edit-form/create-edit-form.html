@@ -1,0 +1,132 @@
+@if (isOpen) {
+  <div class="fixed inset-0 z-40 bg-[#212529dd] bg-opacity-75"></div>
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="relative bg-gray-800 rounded-lg shadow-2xl w-full max-w-2xl transform transition-all"
+          role="dialog" aria-modal="true">
+      
+      <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
+        <h3 class="text-xl font-semibold text-white">
+          {{isCreate ? 'Create New Employee' : 'Edit Employee'}}
+        </h3>
+        <button (click)="closeForm()" type="button" class="text-gray-400 bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-600 hover:text-white">
+          <img class="h-5 w-5" src="assets/svg/close.svg" alt="">
+        </button>
+      </div>
+  
+      <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+        <form #employeeForm="ngForm" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          @if (errorMessage == undefined) {
+            <div class="sm:col-span-2 flex justify-center">
+              <span class="text-red-400">
+                {{errorMessage}}
+              </span>
+            </div>
+          }
+          <div>
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="employeeData.firstName" #firstNameInput="ngModel" required class="form-input">
+            @if (firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)) {
+              <div class="text-red-400 text-xs mt-1">
+                @if (firstNameInput.errors?.['required']) {
+                  <span>First Name is required.</span>
+                }
+              </div>
+            }
+          </div>
+          <div>
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="employeeData.lastName" #lastNameInput="ngModel" required class="form-input">
+            @if (lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)) {
+              <div class="text-red-400 text-xs mt-1">
+                @if (lastNameInput.errors?.['required']) {
+                  <span>Last Name is required.</span>
+                }
+              </div>
+            }
+          </div>
+          <div class="sm:col-span-2">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" [(ngModel)]="employeeData.username" #usernameInput="ngModel" required class="form-input">
+            @if (usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)) {
+              <div class="text-red-400 text-xs mt-1">
+                @if (usernameInput.errors?.['required']) {
+                  <span>Username is required.</span>
+                }
+              </div>
+            }
+          </div>
+          <div class="sm:col-span-2">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" [(ngModel)]="employeeData.email" #emailInput="ngModel" required email class="form-input">
+            @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) {
+              <div class="text-red-400 text-xs mt-1">
+                @if (emailInput.errors?.['required']) {
+                  <span>Email is required.</span>
+                }
+                @else if (emailInput.errors?.['email']) {
+                  <span>Please enter a valid email format.</span>
+                }
+              </div>
+            }
+          </div>
+          <div class="sm:col-span-2">
+            <label for="birthDate" class="form-label">Birth Date</label>
+            <input type="date" onkeydown="return false"  [max]="today" id="birthDate" name="birthDate" [(ngModel)]="birthDateValue" #birthDateInput="ngModel" required class="form-input">
+            @if (birthDateInput.invalid && (birthDateInput.dirty || birthDateInput.touched)) {
+              <div class="text-red-400 text-xs mt-1">
+                @if (birthDateInput.errors?.['required']) {
+                  <span>BirthDate is required.</span>
+                }
+                @else if (birthDateInput.errors?.['max']) {
+                  <span>Birthdate cannot be in the future.</span>
+                }
+              </div>
+            }
+          </div>
+          <div>
+              <label for="basicSalary" class="form-label">Basic Salary (IDR)</label>
+              <input type="number" id="basicSalary" name="basicSalary" [(ngModel)]="employeeData.basicSalary" #basicSalaryInput="ngModel" required class="form-input">
+            @if (basicSalaryInput.invalid && (basicSalaryInput.dirty || basicSalaryInput.touched)) {
+              <div class="text-red-400 text-xs mt-1">
+                @if (basicSalaryInput.errors?.['required']) {
+                  <span>Basic Salary is required.</span>
+                }
+              </div>
+            }
+          </div>
+          <div>
+            <label for="group" class="form-label">Group</label>
+            <select id="group" name="group" required [(ngModel)]="employeeData.group" class="form-input">
+              @for (group of availableGroups; track $index) {
+                <option [value]="group">{{group}}</option>
+              }
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" name="status" [(ngModel)]="employeeData.status" required class="form-input">
+              @for (status of statusList; track $index) {
+                <option [value]="status">{{status}}</option>
+              }
+            </select>
+          </div>
+        </form>
+      </div>
+  
+      <div class="flex items-center p-6 space-x-2 border-t rounded-b border-gray-600">
+        <button
+          (click)="saveEmployee()" 
+          [disabled]="employeeForm.invalid"
+          type="button" 
+          class="text-white focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-sky-500 hover:bg-sky-600 focus:ring-sky-800 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Save Employee
+        </button>
+        <button (click)="closeForm()" type="button" class="focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-600 focus:ring-gray-600">
+          Cancel
+        </button>
+      </div>
+  
+    </div>
+  </div>
+}
