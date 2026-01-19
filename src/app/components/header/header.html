@@ -1,30 +1,47 @@
 @if (isLoggedIn()) {
   <header
-    class="bg-gray-800 shadow-md w-full sticky top-0 z-10"
+    class="fixed top-0 left-0 w-full z-50 glass-panel border-x-0 border-t-0 rounded-none shadow-lg"
   >
     <div class="px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div
-          class="flex items-center w-16 cursor-pointer"
-          (click)="redirectToHome()"
-        >
-          <h1 class="ml-3 text-xl font-bold text-gray-100">
-            Employee Management
-          </h1>
-        </div>
+      <div class="max-w-7xl mx-auto">
+        <div class="h-16 flex items-center justify-between">
+          <!-- Logo Section -->
+          <div
+            class="flex items-center gap-3 cursor-pointer group"
+            (click)="redirectToHome()"
+          >
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+               </svg>
+            </div>
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+              Employee<span class="font-normal text-slate-500">Management</span>
+            </h1>
+          </div>
 
-        <div class="flex items-center space-x-4">
-          <span class="font-medium text-gray-300">
-            Welcome, {{ getUsername() }}
-          </span>
-          <button 
-            (click)="onLogout()"
-            class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300 ease-in-out">
-            <img src="assets/svg/logout.svg">
-            Logout
-          </button>
+          <!-- Right Section -->
+          <div class="flex items-center gap-6">
+            <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5">
+              <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+              <span class="text-sm font-medium text-slate-300">
+                Hi, {{ getUsername() }}
+              </span>
+            </div>
+            
+            <button 
+              (click)="onLogout()"
+              class="group flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white bg-red-500/10 hover:bg-red-500/90 border border-red-500/20 hover:border-red-500 hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 ease-in-out">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              <span>Logout</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </header>
+  <!-- Spacer to prevent content from hiding behind fixed header -->
+  <div class="hidden md:block h-20"></div>
 }

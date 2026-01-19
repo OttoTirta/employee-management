@@ -1,0 +1,63 @@
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <!-- Backdrop -->
+  <div 
+    class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+    (click)="onCancel()"
+  ></div>
+
+  <!-- Modal Card -->
+  <div class="relative glass-panel rounded-2xl w-full max-w-md p-6 overflow-hidden animate-[scaleIn_0.2s_ease-out]">
+    <!-- Icon & Title -->
+    <div class="flex items-center gap-4 mb-4">
+      <div 
+        class="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+        [ngClass]="{
+          'bg-red-500/20 text-red-400': type === 'danger',
+          'bg-yellow-500/20 text-yellow-400': type === 'warning',
+          'bg-blue-500/20 text-blue-400': type === 'info'
+        }"
+      >
+        @if (type === 'danger') {
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        } @else if (type === 'warning') {
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+           </svg>
+        } @else {
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        }
+      </div>
+      <h3 class="text-xl font-bold text-white">{{ title }}</h3>
+    </div>
+
+    <!-- Message -->
+    <div class="mb-8">
+      <p class="text-slate-300" [innerHTML]="message"></p>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end gap-3">
+      <button 
+        (click)="onCancel()"
+        class="px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors font-medium cursor-pointer"
+      >
+        {{ cancelText }}
+      </button>
+      <button 
+        (click)="onConfirm()"
+        class="px-4 py-2 rounded-xl text-white font-bold shadow-lg transition-all transform active:scale-95 cursor-pointer"
+        [ngClass]="{
+          'bg-red-500 hover:bg-red-600 shadow-red-500/20': type === 'danger',
+          'bg-yellow-500 hover:bg-yellow-600 shadow-yellow-500/20 text-slate-900': type === 'warning',
+          'bg-sky-500 hover:bg-sky-600 shadow-sky-500/20': type === 'info'
+        }"
+      >
+        {{ confirmText }}
+      </button>
+    </div>
+  </div>
+</div>

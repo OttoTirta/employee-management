@@ -199,3 +199,15 @@
   [employee]="selectedEmployee"
   (close)="closeDetailForm()"
 />
+
+@if (isDeleteConfirmationOpen) {
+  <app-confirmation
+    title="Delete Employee"
+    [message]="'Are you sure you want to delete <span class=\'font-bold text-sky-400\'>' + employeeToDelete + '</span>? This action cannot be undone.'"
+    confirmText="Yes, Delete"
+    cancelText="Cancel"
+    type="danger"
+    (confirm)="confirmDelete()"
+    (cancel)="closeDeleteConfirmation()"
+  />
+}

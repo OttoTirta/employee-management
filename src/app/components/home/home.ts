@@ -5,11 +5,12 @@ import { FormControl, ReactiveFormsModule} from "@angular/forms";
 import { debounceTime } from 'rxjs';
 import { CreateEditForm } from "./create-edit-form/create-edit-form";
 import { DetailForm } from "./detail-form/detail-form";
+import { ConfirmationComponent } from '../shared/confirmation/confirmation';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [ReactiveFormsModule, CreateEditForm, DetailForm, CommonModule],
+  imports: [ReactiveFormsModule, CreateEditForm, DetailForm, ConfirmationComponent, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
@@ -62,6 +63,10 @@ export class Home {
   isCreateForm: boolean = true;
   isOpenDetail: boolean = false;
   selectedEmployee!: EmployeeData;
+
+  // Confirmation State
+  isDeleteConfirmationOpen: boolean = false;
+  employeeToDelete: string | null = null;
 
   constructor(private employeeService: EmployeeService){
     this.activateFilterListener();
@@ -154,14 +159,32 @@ export class Home {
     this.openEmployeeForm('Edit');
   }
 
+  // Opens the confirmation modal
   deleteEmployee(username: string): void {
-    this.employeeService.deleteEmployeeByUsername(username)
-    .subscribe({
-      next: res => {
-        if (res.responseCode == 200){
-          this.getEmployee();
+    this.employeeToDelete = username;
+    this.isDeleteConfirmationOpen = true;
+  }
+
+  // Actual deletion logic called after confirmation
+  confirmDelete(): void {
+    if (this.employeeToDelete) {
+      this.employeeService.deleteEmployeeByUsername(this.employeeToDelete)
+      .subscribe({
+        next: res => {
+          if (res.responseCode == 200){
+            this.getEmployee();
+          }
+          this.closeDeleteConfirmation();
+        },
+        error: () => {
+          this.closeDeleteConfirmation();
         }
-      }
-    });
+      });
+    }
+  }
+
+  closeDeleteConfirmation(): void {
+    this.isDeleteConfirmationOpen = false;
+    this.employeeToDelete = null;
   }
 }
